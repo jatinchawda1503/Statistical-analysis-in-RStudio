@@ -1,19 +1,19 @@
 ---
 title: "Statistical analysis in RStudio"
 output:
-  html_document:
-    toc: yes
-    toc_depth: '2'
-    df_print: paged
-  word_document:
-    toc: yes
-    toc_depth: '2'
-  pdf_document:
+  pdf_document:  
     keep_tex: yes
     extra_dependencies: "subfig"
     toc: yes
     toc_depth: 2
     number_sections: yes
+  word_document:
+    toc: yes
+    toc_depth: '1'
+  html_document:
+    toc: yes
+    toc_depth: '1'
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -201,7 +201,7 @@ ggplot(data,aes(x=Year.Month, y=average.count)) +
   theme(panel.background = element_blank(),axis.text.x = element_text(angle = 90))
 ```
 
-### Kruskal Test For each month 
+### Kruskal Test For Each month 
 
 If we consider the year 2007, we can see that there is no significant difference between different months.The p-value is greater than 0.05 and the adjusted p value is also greater than 0.05.
 
