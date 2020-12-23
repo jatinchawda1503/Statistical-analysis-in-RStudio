@@ -16,8 +16,8 @@ output:
     df_print: paged
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE,Warning=FALSE,message=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning=FALSE, message=FALSE)
 options(tinytex.verbose = TRUE)
 library(knitr)
 library(readxl)
@@ -47,9 +47,7 @@ If we check the head of data we can find There are  5 columns 210 observations.
 * The fourth column represents species which have true unique species  Harbour and grey.
 * The final column represents the average count of each species in a particular year year and month each variable has a unique  count value.
 
-After looking at the column if we check the structure of data,the  first four columns represent the character data type, the last column that is average count represents the numerical data type. 
 
-After getting  familiar with the data set ,the first four column data type should be changed to factor type as in which column the variable of rows  are repetitive.
 
 
 
@@ -66,6 +64,9 @@ kable(head(data))
 
 
 ```
+
+
+
 ```{r, echo=F}
 # Checking  structure of data 
 str(data)
@@ -97,10 +98,18 @@ data$Species <- as.factor(data$Species)
 
 # MATERIALS AND METHODS
 
+On this section we will use various methods for the statistical analysis and explore the data which will help to understand the relationship between dependent and independent variables. Before proceeding further if we see the data set we can see that only column has numerical values which we will be considering to use for our analysis, Moving into deep observation, the Average count cosist of each numerical value which represents the average count of seals presents in particular year an month. In addition considering the observation it can be identified for two species which is Grey and Harbor. We can say that the average count is quiet dependent for each of rows and though each of the row is quiet responsible of the analysis therefore in order to explore in the detailed way we can run some normality test. 
 
-## QQNORM Test
+## Normality Test  
+
 
 After checking  rows and columns of data, it can be easily identified that only the average.count  data column has numerical value.  If we check  the normality of the average.count  column using the qqnorm()  function,The Below visualization data represents the relationship between the theoretical and sample quantities which  derive the plotted data is distinctly curved and determines that the data is not normal.
+
+
+### QQNORM TEST 
+
+qqnorm is generic function in r that produces which helps to generate Quantile plot of the y values. The x plot consists of theoretical values where as the y plot consists of sample quantities. A Quantile-Quantify (Q-Q) plot is a scatter plot comparing the fitted and empirical distributions in terms of
+the dimensional values of the variable (i.e., empirical quantifies)(Vito Ricco,p.4).
 
 ```{r, echo=F}
 ## As Mention in the Section 2 Checking for Normalizes 
@@ -108,29 +117,27 @@ After checking  rows and columns of data, it can be easily identified that only 
 qqnorm(data$average.count)
 ```
 
-While  finding out that data is not normal  in  normality test using qqnorm function, if we run the same test  using  shapiro.test() function, The p-value is Greater than 0.01 we can say that it then all hypothesis is not rejected Data is not significantly  distributed  therefore we have to perform non parametric test.
+While finding out that data is not normal  in  normality test using qqnorm function, if we run the same test  using  shapiro.test() function, The p-value is Greater than 0.01 we can say that it then all hypothesis is not rejected Data is not significantly  distributed  therefore we have to perform non parametric test.
+
+### shapiro Test 
+
+Shaprio Normailty test is used to find whether the data is fit for the normal distribution This test was the   first test that was able to detect departures from normality due to either skewness or kurtosis, or both (Althouse et al., 1998)(Nornadiah Mohd Razali and Bee Wah Yap ,p.25).
+
+When we run the shaprio test for average count we can see that the p value is 2.2 and the value of w is 0.67. 
+Thus this test will reject the normality.Since the data is not significant,in order to find out The number of seals are significantly different for each year  plot the data of average count of  number of seals for each year but before that  we have to change the data type of the first four columns  into  factors.
 
 
-```{r, echo=F}
-## shapiro Test 
+If we change the data type we get to know that 
 
-shapiro.test(data$average.count)
-```
-Since the data is not significant,in order to find out The number of seals are significantly different for each year  plot the data of average count of  number of seals   for each year but before that  we have to change the data type of the first four columns  into  factors.
+* The first column consist of four factor i.e 2007 till 2010 
+* The Second column consists of 15 factor each factor is month of each year. 
+* The Third column consists of seven factor, each factor has considered as the different sites of the species. 
+* The Fourth Factor consists of two factor each factor is unique species. 
+* The Final column is to be left over, as it has numerical data type and represents each unique counts for particular year and month.
 
-```{r, echo=F}
-# Checking  structure of data 
-str(data)
 
-```
-After changing the data type we can find that the summer  column has  aur factor levels, Year. month column has 15 factor levels,  the site column as 7 factor level and and the species column  two factor levels.
-
-If we see the data of average count for each year we see that the data is count is  increasing for each  year but we cannot that the changes are significant or not.
-
-In order to find out this  we can transfer some non parametric test like kruskal Wallis rank sum test  Which help us to determine the overall correlation and   statistical Association for data by providing a chi-squared  interpretation and a p-value.
-
-But before if we check the below graph, we can see that the 2009 has highest average count followed by 2010 and the least averge count is 2008. 
-
+As we have seen that, after changing the data type we can find that the summer  column has four factor levels, Year. month column has 15 factor levels,  the site column as 7 factor level and and the species column  two factor levels.
+Therefore we can check now how much average count of species is there in each year which will be helpful to analyse the normality of data. 
 
 ```{r, echo=FALSE}
 ##AVG Summer VS Month
@@ -140,22 +147,36 @@ ggplot(data,aes(x=Summer, y=average.count)) +
   scale_fill_manual(values = c("Blue","yellow")) +
   theme(panel.background = element_blank(),axis.text.x = element_text(angle = 90)) + theme_bw()
 ```
+In the above graph if we can see the the average count of species is highest in 2009 and followed by 2010 where as the least count can be seen in the year 2008 but visualizing the plot we can cannot consider the changes are significant or not.
+
+In order to find out this  we can transfer some non parametric test like kruskal Wallis rank sum test  Which help us to determine the overall correlation and   statistical Association for data by providing a chi-squared  interpretation and a p-value.
 
 
+###  Kruskal-Wallis Test
 
-## Kruskal-Wallis Test
+Kruskal Wallis Test is  Considered as Non-Primitive test and an alternative of Test.It is also called as One way ANNOVA test as the is performed by different individual groups.They are considered as non- primitive test because 
 
-In order to perform the Krukals-wallis test,   we need to use the kruskal.test() function.
+the non-parametric tests are less powerful than their parametric counterparts,i.e. a parametric test is more likely to detect a genuine effect in the data , if there is one, than a non-parametric test (TEODORA H. MEHOTCHEVA,p.3). 
 
+In order to perform the Krukals-wallis test, we need to use the kruskal.test() function.
 
 ```{r, echo=F}
-## So After running Shaprio test we can find the our data is not data are not significantly different from normal distribution.As Our p-value is 2.2
-## We will run Kruskal-Wallis Test
+x<- kruskal.test(data$average.count, data$Summer) 
 
-kruskal.test(data$average.count, data$Summer) 
+print(x$p.value)
 ```
 
-Firstly, if we explore the overall difference between all the variables we can see that The P value is greater than 0.01, thus we can say that it There is no significant difference between the groups. In order to  explore this into more detail to find out that the pairs of groups are different or not, will use pairwise willox test For comparing different group levels for multiple testing.
+Firstly, if we explore the overall difference between all the variables we can see that The p-value is 0.10 and chi-squared value is 6.23 which is greater than the normality distribution, thus we can say that it There is no significant difference between the groups and considering the the data we can also see that the data is not homogeneous.Yet, we know there is difference but we don't know where it is.Therefore, In order to  explore this into more detail to find out that the pairs of groups are different or not, will use pairwise willox test For comparing different group levels for multiple testing.
+
+
+
+
+### Pairwise wilocx Test 
+
+
+Pairwise wilocx test is also a non-primitive test which uses the multiple distributions or repetitive distributions where two or more than two observation is considered to the test. This test helps to test the significant distibtions of a group to derive the paticluar group lies in normality or not. 
+
+Considering the the pairwise solution below for the average count and the year group in order to find the data is significantly distributed or not. 
 
 
 ```{r, echo=F}
@@ -163,9 +184,11 @@ Firstly, if we explore the overall difference between all the variables we can s
 
 ## Running pairwise wilox Test 
 
-pairwise.wilcox.test(data$average.count, data$Summer)
-```
+x <- pairwise.wilcox.test(data$average.count, data$Summer)
+kable(x$p.value)
 
+
+```
 
 In the above test we can see that the P value for significant years is quite normal. further,  providing an adjustment method we can avoid the false positive results  in order to see more accuracy. 
 
@@ -173,9 +196,12 @@ In the above test we can see that the P value for significant years is quite nor
 
 ```{r, echo=F}
 ## Now avoiding false-positive values for the data 
-pairwise.wilcox.test(data$average.count, data$Summer,
+x <- pairwise.wilcox.test(data$average.count, data$Summer,
                      p.adjust.method = "BH")
+kable(x$p.value)
 ```
+
+
 In the above test we can see that the  adjusted P value is greater than 0.05,  this shows that your value is not significant.  In order to understand it with more clarity  if we plot  our data we can see that there was a significant difference between 2010 and 2007,  we can see that the highest number of seals were counted in 2010. Also we can see that in 2007.
  
  
@@ -201,43 +227,48 @@ ggplot(data,aes(x=Year.Month, y=average.count)) +
   theme(panel.background = element_blank(),axis.text.x = element_text(angle = 90))
 ```
 
-### Kruskal Test For Each month 
+## Normality  Test For Each month 
 
-If we consider the year 2007, we can see that there is no significant difference between different months.The p-value is greater than 0.05 and the adjusted p value is also greater than 0.05.
+If we consider the year 2007, we can see that there is no significant difference between different months.The p-value is 0.51 and the adjusted p-value is than 0.62. Considering the normality, we have to explore for the each year in order to find out if the data is significant or not not in every year.
 
 ```{r, echo=F}
 
 ### For 2007
 ## Exploring difference between months in 2007 using kruskal test
 
-kruskal.test(data$average.count[data$Summer == "2007"], data$Year.Month[data$Summer == "2007"]) 
+x <- kruskal.test(data$average.count[data$Summer == "2007"], data$Year.Month[data$Summer == "2007"]) 
+print(x$p.value)
 ```
 
 
 ```{r, echo=F,error=FALSE}
 ## Exploring difference between months in 2007 using pairwise wilox Test 
 
-pairwise.wilcox.test(data$average.count[data$Summer == "2007"],data$Year.Month[data$Summer == "2007"],
+x <- pairwise.wilcox.test(data$average.count[data$Summer == "2007"],data$Year.Month[data$Summer == "2007"],
                      p.adjust.method = "BH")
+
+kable(x$p.value)
 ```
 
-If we consider the year 2008, we can see that there is no significant difference  between different months.
+If we consider the year 2008, we can see that there is no significant difference  between different months.The p-vaule for kruskal test is 0.8 and the adjusted p-values is 0.93.Further, we need to check for 2009 and 2010. 
 ```{r, echo=F}
 
 ### For 2008
 ## Exploring difference between months in 2007 using kruskal test
 
-kruskal.test(data$average.count[data$Summer == "2008"], data$Year.Month[data$Summer == "2008"]) 
+x <- kruskal.test(data$average.count[data$Summer == "2008"], data$Year.Month[data$Summer == "2008"]) 
+print(x$p.value)
 ```
 ```{r, echo=F,error=FALSE}
 ## Exploring diffrence between months in 2007 using pairwise wilox Test 
 
-pairwise.wilcox.test(data$average.count[data$Summer == "2008"],data$Year.Month[data$Summer == "2008"],
+x <- pairwise.wilcox.test(data$average.count[data$Summer == "2008"],data$Year.Month[data$Summer == "2008"],
                      p.adjust.method = "BH")
+kable(x$p.value)
 ```
 
 
-If we consider the year 2007, we can see that there is no significant difference  between different months.
+If we consider the year 2009, we can see that there is no significant difference  between different months. The p-value is 0.93 and the adjusted p-value is 1. We can see that until now we didnot find any significant differnce, lets check the the test of 2010.
 
 
 ```{r, echo=F}
@@ -245,34 +276,41 @@ If we consider the year 2007, we can see that there is no significant difference
 ### For 2009
 ## Exploring difference between months in 2007 using kruskal test
 
-kruskal.test(data$average.count[data$Summer == "2009"], data$Year.Month[data$Summer == "2009"]) 
+x <- kruskal.test(data$average.count[data$Summer == "2009"], data$Year.Month[data$Summer == "2009"]) 
+
+print(x$p.value)
 ```
 ```{r, echo=F,error=FALSE}
 ## Exploring diffrence between months in 2007 using pairwise wilox Test 
 
-pairwise.wilcox.test(data$average.count[data$Summer == "2009"],data$Year.Month[data$Summer == "2009"],
+x <- pairwise.wilcox.test(data$average.count[data$Summer == "2009"],data$Year.Month[data$Summer == "2009"],
                      p.adjust.method = "BH")
+
+kable(x$p.value)
 ```
-If we consider the year 2010, we can see that there is slight significant difference  between different months.
+If we consider the year 2010, we can see that there is no significant difference between different months. the p-value of the krukal test is 0.4 and the adjusted p-vaues varies from year to year, thus the normality test for each month can be considered as the significant difference therefore we can consider the normailty of each year. 
 ```{r, echo=F}
 
 ### For 2010
 ## Exploring difference between months in 2007 using kruskal test
 
-kruskal.test(data$average.count[data$Summer == "2010"], data$Year.Month[data$Summer == "2010"]) 
+x <- kruskal.test(data$average.count[data$Summer == "2010"], data$Year.Month[data$Summer == "2010"]) 
+print(x$p.value)
 ```
 
 
 ```{r, echo=F,error=FALSE}
 ## Exploring diffrence between months in 2007 using pairwise wilox Test 
 
-print(pairwise.wilcox.test(data$average.count[data$Summer == "2010"],data$Year.Month[data$Summer == "2010"],
-                     p.adjust.method = "BH"))
+x <- pairwise.wilcox.test(data$average.count[data$Summer == "2010"],data$Year.Month[data$Summer == "2010"],
+                     p.adjust.method = "BH")
+kable(x$p.value)
 ```
 
+We have seen above the normality test also did not perform very well for each month but we have seen that there should be a significant difference in the data. So we will try to explore the Species group in order to find the normality of derivatives. 
 
 
-## Specices Abundance
+##  Normality test for Species
 
 
 Considering the data and previous stats we found that there were no significant difference for each month but in order to get detailed information about the species we can check the count of each type of species and find out the non-significant relationship of the data .
@@ -284,26 +322,31 @@ Considering the data and previous stats we found that there were no significant 
 
 ggplot(data,aes(fill=Species, x=Species, y=average.count)) +
   geom_bar(position = "dodge",stat = "identity", width = 0.9) +
-  scale_fill_manual(values = c("Yellow","pink")) +
+  scale_fill_manual(values = c("Red","Blue")) +
   theme(panel.background = element_blank(),axis.text.x = element_text(angle = 90))
 ```
 
 
-As we had seen the above graph about the average count is increasing over year to year, using the kruskal test we can find out the difference between each species.
+As we had seen the above graph about the average count of the harbor species are very much than the grey species.We can say that the Harbor species are more common than the grey species, using the kruskal test we can find out the difference between each species.
 
 
 
 ```{r, echo=F}
 ## Comparing species abundance
 
-kruskal.test(data$average.count, data$Species)
-
+x <- kruskal.test(data$average.count, data$Species)
+print(x$p.value)
 ```
 ```{r, echo=F}
 ## Now avoiding false-positive values for the data 
-pairwise.wilcox.test(data$average.count, data$Species,
+x <- pairwise.wilcox.test(data$average.count, data$Species,
                      p.adjust.method = "BH")
+kable(x$p.value)
 ```
+
+After performing the test we can easily see the p values is greater than 0.01 and after plotting the below graph we can say that the Harbour seals population are more comparatively grey. In other way, it can be derived that the harbor seals are more significantly common than the grey species.
+
+Also, we can explore data in more detailed way in order to find out significant difference of species for each year. 
 
 
 ```{r, echo=F}
@@ -313,42 +356,43 @@ pairwise.wilcox.test(data$average.count, data$Species,
 plot(data$average.count ~ data$Species, col = rainbow(2))
 ```
 
-After performing the test we can easily see the p values is greater than 0.01 and after plotting the below graph we can say that the Harbour seals population are more comparatively grey. In other way, it can be derived that the harbor seals are more significantly common than the grey species.
 
-Also, we can explore data in more detailed way in order to find out significant difference of species for each year. 
-
-
-If we look at the below stats, we can clearly see the p-value for 2007 year is greater than 0.05 and adjusted p-value is is also greater than 0.05 which derives there is slightest significance difference in the Species
+If we look at the below stats, we can clearly see the p-value for 2007 year is 0.09 and adjusted p-value is 0.07 also greater than the significant value which derives there is slightest significance difference in the Species. However this test will fail considering the significant difference of normality test.
 
 ```{r, echo=F}
 ## Calculating for Year 2007
 
 
-kruskal.test(data$average.count[data$Summer == "2007"], data$Species[data$Summer == "2007"]) 
+x <- kruskal.test(data$average.count[data$Summer == "2007"], data$Species[data$Summer == "2007"]) 
+print(x$p.value)
 ```
 
 ```{r, echo=F}
 ## Exploring diffrence between months in 2007 using pairwise wilox Test 
 
-pairwise.wilcox.test(data$average.count[data$Summer == "2007"],data$Species[data$Summer == "2007"],
+x <- pairwise.wilcox.test(data$average.count[data$Summer == "2007"],data$Species[data$Summer == "2007"],
                      p.adjust.method = "BH")
+
+kable(x$p.value)
 ```
-Again, If we look at the below stats, we can clearly see the p-value for 2008 year is greater than 0.05 and adjusted p-value is is also greater than 0.05 which derives there is slightest significance difference in the Species.
+Again, If we look at the below stats, we can clearly see the p-value for 2008 year is 0.09 and adjusted p-value is 0.10 which is greater than significant value which derives the group is not in range of normailty and we have to consider it as a  failed test.
+
 
 ```{r, echo=F}
 ## Calculating for Year 2008
 
 
-kruskal.test(data$average.count[data$Summer == "2008"], data$Species[data$Summer == "2008"]) 
+x <- kruskal.test(data$average.count[data$Summer == "2008"], data$Species[data$Summer == "2008"]) 
+print(x$p.value)
 ```
 
 ```{r, echo=F}
-## Exploring diffrence between months in 2007 using pairwise wilox Test 
 
-pairwise.wilcox.test(data$average.count[data$Summer == "2008"],data$Species[data$Summer == "2008"],
+x <- pairwise.wilcox.test(data$average.count[data$Summer == "2008"],data$Species[data$Summer == "2008"],
                      p.adjust.method = "BH")
+kable(x$p.value)
 ```
-Again, If we look at the below stats, we can clearly see the p-value for 2009 year is below to 0.05 and adjusted p-value is is also less than 0.05 which derives there is significance difference in the Species.
+If we look at the below stats, we can clearly see the p-value for 2009 year is to 0.001 and adjusted p-value is also  0.001 which derives there is significance difference in the Species.Therefore we can say that the data is normaly distributed in the year 2009.
 
 
 ```{r, echo=F}
@@ -356,18 +400,22 @@ Again, If we look at the below stats, we can clearly see the p-value for 2009 ye
 ## Calculating for Year 2009
 
 
-kruskal.test(data$average.count[data$Summer == "2009"], data$Species[data$Summer == "2009"]) 
+x <- kruskal.test(data$average.count[data$Summer == "2009"], data$Species[data$Summer == "2009"]) 
+
+print(x$p.value)
 ```
 
 ```{r, echo=F}
 ## Exploring difference between months in 2007 using pairwise wilox Test 
 
-pairwise.wilcox.test(data$average.count[data$Summer == "2009"],data$Species[data$Summer == "2009"],
+x <- pairwise.wilcox.test(data$average.count[data$Summer == "2009"],data$Species[data$Summer == "2009"],
                      p.adjust.method = "BH")
+
+kable(x$p.value)
 ```
 
 
-Finally, If we look at the below stats, we can clearly see the p-value for 2010 year is below to 0.05 and adjusted p-value is is also less than 0.05 which derives there is significance difference in the Species.
+Finally, If we look at the below stats, we can clearly see the p-value for 2010 year is 0.04 and adjusted p-value is is 0.04 which derives there is significance difference in the Species. Therfore we can say that the data is normaly distibuted in the year 2010 
 
 
 ```{r, echo=F}
@@ -375,22 +423,21 @@ Finally, If we look at the below stats, we can clearly see the p-value for 2010 
 ## Calculating for Year 2010
 
 
-kruskal.test(data$average.count[data$Summer == "2010"], data$Species[data$Summer == "2010"]) 
-
+x <- kruskal.test(data$average.count[data$Summer == "2010"], data$Species[data$Summer == "2010"]) 
+print(x$p.value)
 ```
 
 ```{r, echo=F}
 ## Exploring difference between months in 2010 using pairwise wilox Test 
 
-pairwise.wilcox.test(data$average.count[data$Summer == "2010"],data$Species[data$Summer == "2010"],
+x <- pairwise.wilcox.test(data$average.count[data$Summer == "2010"],data$Species[data$Summer == "2010"],
                      p.adjust.method = "BH")
+kable(x$p.value)
 ```
 
-From this we can easily say that in 2007 and 2008 the population of species were not significantly different where as in 2009 and 2010 we can say that the population is significantly different from other.
+From this we can easily say that in 2007 and 2008 the population of species were not significantly different where as in 2009 and 2010 we can say that the population is significantly different from other.By this we can say that in the year 2009 and 2010 the data is significantly distributed and is normalized.
 
 Therefore from here we need to calculate the error in order to find the out better results and improve the performance but before that we can check the population of individual species for particular month and further we can develop the error bars after calculating the error . 
-
-
 
 
 ```{r, echo=FALSE}
@@ -412,7 +459,7 @@ dataError <- summarySE(data,measurevar = "average.count",groupvars = c("Year.Mon
 kable(head(dataError))
 
 ```
-
+The Below Graph represents the standard deviation of each of the species in particular months in a years. Considering the graph we can see that the In August 2010 the standard deviation seems to be very far from the mean value but in 2009 June and July, The SD values are very close to with mean value. 
 
 ```{r, echo=FALSE}
 
@@ -431,18 +478,19 @@ ggplot(dataError,aes(fill=Species, x=Year.Month, y=sd)) +
 ## Species Vs SE
 ggplot(dataError,aes(fill=Species, x=Year.Month, y=se)) +
   geom_bar(position = "dodge",stat = "identity", width = 0.9) +
-  scale_fill_manual(values = c("Yellow","pink")) +
+  scale_fill_manual(values = c("Orange","Light Blue")) +
   theme(panel.background = element_blank(),axis.text.x = element_text(angle = 90))
 
 
 ```
+
 
 ```{r, echo=FALSE}
 
 ## Species Vs SD
 ggplot(dataError,aes(fill=Species, x=Year.Month, y=ci)) +
   geom_bar(position = "dodge",stat = "identity", width = 0.9) +
-  scale_fill_manual(values = c("Yellow","pink")) +
+  scale_fill_manual(values = c("Yellow","Pink")) +
   theme(panel.background = element_blank(),axis.text.x = element_text(angle = 90))
 
 
@@ -504,6 +552,20 @@ In the above data, We were able to successfully explore and analyse and find out
 
 ### REFERENCES
 
+* FITTING DISTRIBUTIONS WITH R by Mr Vito Ricci.     
+Avialable from: https://mran.revolutionanalytics.com/snapshot/2015-11-22/doc/contrib/Ricci-distributions-en.pdf
+[Accessed at 20th December 2020]
 
-The Kruskal-Wallis One-way Ananysis of Variance by Ranks --Analysis of k-Between-Group Data      with a Quantitative Response Variable. Available from : https://psych.unl.edu/psycrs/handcomp/hckw.PDF. [Accessed at 20th December 2020]
-Biostathandbook.com, http://www.biostathandbook.com/kruskalwallis.html [Accessed at 23d December 2020]
+* Power Comparisons of Shapiro-Wilk, Kolmogorov-Smirnov, Lilliefors and Anderson-Darling Tests by Nornadiah Mohd Razali and Bee Wah Yap,
+Avialable from:  https://www.researchgate.net/profile/Bee_Yap/publication/267205556_Power_Comparisons_of_Shapiro-Wilk_Kolmogorov-Smirnov_Lilliefors_and_Anderson-Darling_Tests/links/5477245b0cf29afed61446e1/Power-Comparisons-of-Shapiro-Wilk-Kolmogorov-Smirnov-Lilliefors-and-Anderson-Darling-Tests.pdf 
+[Accessed at 21st December 2020]
+
+* THE KRUSKAL–WALLLIS TEST, TEODORA H. MEHOTCHEVA
+Available from : http://www.let.rug.nl/nerbonne/teach/rema-stats-meth-seminar/presentations/Mehotcheva-2008-Kruskal-Wallis.pdf [Accessed at 21st December 2020]
+
+* The Pairwise Multiple Comparison of Mean Ranks Package (PMCMR), Thorsten Pohlert
+Available from: https://cran.microsoft.com/snapshot/2014-09-08/web/packages/PMCMR/vignettes/PMCMR.pdf
+[Accessed at 22nd December 2020]
+
+* Handbook of Biological Statistics, John H. McDonald
+Available from : http://www.biostathandbook.com/kruskalwallis.html [Accessed at 23d December 2020]
