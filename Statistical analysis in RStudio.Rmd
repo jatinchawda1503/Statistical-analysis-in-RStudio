@@ -1,12 +1,6 @@
 ---
 title: "Statistical analysis in RStudio"
 output:
-  pdf_document:
-    keep_tex: yes
-    extra_dependencies: "subfig"
-    toc: yes
-    toc_depth: 2
-    number_sections: yes
   html_document:
     toc: yes
     toc_depth: '2'
@@ -14,6 +8,12 @@ output:
   word_document:
     toc: yes
     toc_depth: '2'
+  pdf_document:
+    keep_tex: yes
+    extra_dependencies: "subfig"
+    toc: yes
+    toc_depth: 2
+    number_sections: yes
 ---
 
 ```{r setup, include=FALSE}
