@@ -224,12 +224,15 @@ ggplot(data,aes(fill=Species, x=Summer, y=average.count,group=Species)) +
 
 ## facet Summer 
 ggplot(data,aes(fill=Species, x=Site, y=average.count,group=Species)) +
-  geom_line()+
-  geom_point(aes(color=Species))+
-  scale_fill_manual(values = c("Yellow","pink")) +
+  geom_bar(aes(fill=Species),position = "dodge",stat = "identity", width = 0.9)+
+  scale_fill_manual(values = c("light blue","Orange")) +
   theme(panel.background = element_blank(),axis.text.x = element_text(angle = 90))+
   facet_grid(Species ~ Summer,scales = "free")
 
 
 
-
+ggplot(data,aes(fill=Site, x=Year.Month, y=average.count,group=Site)) +
+  geom_bar(aes(fill=Site),position = "dodge",stat = "identity", width = 0.9)+
+  scale_fill_manual(values = c("light blue","Orange")) +
+  theme(panel.background = element_blank(),axis.text.x = element_text(angle = 90))+
+  facet_grid(Species ~ Site,scales = "free")

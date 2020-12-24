@@ -83,11 +83,82 @@
 \hypertarget{abstact}{%
 \subsubsection{Abstact}\label{abstact}}
 
+The objective of the report is to perform Statistical analysis using
+Seal Data from 2007 to 2010.The Seals data is collected every year from
+mid of June till mid of September.After the disappearance of seals in
+the early 1930s, for the first time the seals started to colonized near
+the Tees Estuary.The Seals in the specific year are monitored and the
+data is collected accordingly.
+
+The objective of this report is to analyze seal population distribution
+and variance in Tees Estuary and perform analysis. In order to perform
+the analysis, check for the normality check and perform the correlation
+and statistical association using Kruskal-wallis test and Pairwise
+Wilcox test. The performance of different test will help to evaluate the
+performance in other words it will help to make understand that the
+occurring data is significant or not. With the basic analysis of the
+data, however the data needs to be more specifically explored, to
+understand the analysis better, the comparison of average count using
+each Year was performed to check the presence of seal absence and
+presence in specific years. Using Kruskal wallis and Pairwise Wilcox
+test, In 2009, the spices populations were not significantly common than
+rest of the years.
+
+After performing all the test using the data, the exploring of data was
+significantly needed for better understanding of the performance of both
+the species in different year. The data was explored using ggplot
+library and performed visual analysis which shows the error bars are
+reflecting standard error. Finally the last task was to explore the data
+and perform the visual analysis using ggplot library.
+
 \hypertarget{introduction}{%
 \section{INTRODUCTION}\label{introduction}}
 
+For many hundreds of years, Seals in the Northern England have lived
+near mouth of River Tees but declined rapidly by late 1800s Years. The
+main reason reason for rapid declining was number of factors such as
+pollution, environmental changes.As this resulted complete disappearance
+of seals in the 1930s. In the mid 1950s when the plats nearby were
+replaced by the newer ones, the pollution in the river started
+controlling, due toin 1970s the Harbor seals started to reappearing .The
+Only estuary where the Harbor seals were re-colonized was in Teesmouth
+which proved a direct result for improving the environment.Therefore,
+due to this in late 19th century a central committee was formed in 1992
+in order to monitor seals in the Tees Estuary and to compare them to
+previous years.
+
+Considering the duration of seals, the seals likely to seen in the mid
+of June till mid of September Each Year.However, Each year , for the
+same duration a monitoring is carried out when seals give birth until
+they gater to molt. The following data were recorded each year
+
+\begin{itemize}
+\tightlist
+\item
+  The Number of Seal Species.
+\item
+  The Number of Seal Pups.
+\item
+  The Location of Seals
+\item
+  Instance of disturbance to seals
+\item
+  Deaths or injuries to Seals
+\item
+  Abandonment of Seals
+\item
+  Weather Conditions
+\end{itemize}
+
+\hypertarget{materials-and-methods}{%
+\section{MATERIALS AND METHODS}\label{materials-and-methods}}
+
+\hypertarget{data-collection}{%
+\subsection{Data Collection}\label{data-collection}}
+
 The main objective of statistical analysis is to find the correlation
-and Trends of seal abundance using the serial dataset.
+and Trends of seal abundance using the serial dataset from year 2007 to
+2010.
 
 Firstly we will download the data and convert it into a csv file and
 then import data into R studio after importing data We will read the
@@ -137,24 +208,24 @@ summer-2007 & 2007.Jun & D & HARBOUR & 0.0\tabularnewline
 ##  $ average.count: num  14.1 0.3 14.7 0.1 0.7 0 0 0.3 0 2.6 ...
 \end{verbatim}
 
-\hypertarget{materials-and-methods}{%
-\section{MATERIALS AND METHODS}\label{materials-and-methods}}
+On the next section we will use various methods for the statistical
+analysis and explore the data which will help to understand the
+relationship between dependent and independent variables. Before
+proceeding further if we see the data set we can see that only column
+has numerical values which we will be considering to use for our
+analysis, Moving into deep observation, the Average count consist of
+each numerical value which represents the average count of seals
+presents in particular year an month. In addition considering the
+observation it can be identified for two species which is Grey and
+Harbor. We can say that the average count is quiet dependent for each of
+rows and though each of the row is quiet responsible of the analysis
+therefore in order to explore in the detailed way we can run some
+normality test.
 
-On this section we will use various methods for the statistical analysis
-and explore the data which will help to understand the relationship
-between dependent and independent variables. Before proceeding further
-if we see the data set we can see that only column has numerical values
-which we will be considering to use for our analysis, Moving into deep
-observation, the Average count cosist of each numerical value which
-represents the average count of seals presents in particular year an
-month. In addition considering the observation it can be identified for
-two species which is Grey and Harbor. We can say that the average count
-is quiet dependent for each of rows and though each of the row is quiet
-responsible of the analysis therefore in order to explore in the
-detailed way we can run some normality test.
-
-\hypertarget{normality-test}{%
-\subsection{Normality Test}\label{normality-test}}
+\hypertarget{normality-test-for-seal-population-in-tees-estuary-from-2007-to-2010.}{%
+\subsection{Normality Test for Seal population in Tees Estuary from 2007
+to
+2010.}\label{normality-test-for-seal-population-in-tees-estuary-from-2007-to-2010.}}
 
 After checking rows and columns of data, it can be easily identified
 that only the average.count data column has numerical value. If we check
@@ -226,8 +297,8 @@ normality of data.
 \includegraphics{Statistical-analysis-in-RStudio_files/figure-latex/unnamed-chunk-5-1.pdf}
 In the above graph if we can see the the average count of species is
 highest in 2009 and followed by 2010 where as the least count can be
-seen in the year 2008 but visualizing the plot we can cannot consider
-the changes are significant or not.
+seen in the year 2008 in Tees Estuary but visualizing the plot we can
+cannot consider the changes are significant or not.
 
 In order to find out this we can transfer some non parametric test like
 kruskal Wallis rank sum test Which help us to determine the overall
@@ -317,9 +388,9 @@ accurate and help us to find the significant errors which were present
 in data.
 
 \includegraphics{Statistical-analysis-in-RStudio_files/figure-latex/unnamed-chunk-9-1.pdf}
-After this we can check the presence of the seals for each month in a
-particular year. We might be able to explore the difference for the
-presence of seals in each month of the year.
+After this we can check the presence of the seals in Tees Estuary for
+each month in a particular year. We might be able to explore the
+difference for the presence of seals in each month of the year.
 
 The plot below shows the values of average count for each month of
 particular year.We can see that in 2009 Aug,the number of species were
@@ -329,9 +400,9 @@ and run test accordingly.
 
 \includegraphics{Statistical-analysis-in-RStudio_files/figure-latex/unnamed-chunk-10-1.pdf}
 
-\hypertarget{normality-test-for-each-month}{%
-\subsection{Normality Test For Each
-month}\label{normality-test-for-each-month}}
+\hypertarget{normality-test-for-seal-population-in-tees-estuary-for-each-month}{%
+\subsection{Normality Test For Seal population in Tees Estuary for Each
+Month}\label{normality-test-for-seal-population-in-tees-estuary-for-each-month}}
 
 If we consider the year 2007, we can see that there is no significant
 difference between different months.The p-value is 0.51 and the adjusted
@@ -419,9 +490,9 @@ each month but we have seen that there should be a significant
 difference in the data. So we will try to explore the Species group in
 order to find the normality of derivatives.
 
-\hypertarget{normality-test-for-species}{%
-\subsection{Normality test for
-Species}\label{normality-test-for-species}}
+\hypertarget{normality-test-for-seal-population-in-tees-estuary-of-each-species.}{%
+\subsection{Normality test for Seal population in Tees Estuary of each
+species.}\label{normality-test-for-seal-population-in-tees-estuary-of-each-species.}}
 
 Considering the data and previous stats we found that there were no
 significant difference for each month but in order to get detailed
@@ -433,7 +504,7 @@ species and find out the non-significant relationship of the data .
 As we had seen the above graph about the average count of the harbor
 species are very much than the grey species.We can say that the Harbor
 species are more common than the grey species, using the kruskal test we
-can find out the difference between each species.
+can find out the difference between each species in Tees Estuary.
 
 \begin{verbatim}
 ## [1] 1.561916e-05
@@ -451,8 +522,8 @@ HARBOUR & 1.57e-05\tabularnewline
 After performing the test we can easily see the p values is greater than
 0.01 and after plotting the below graph we can say that the Harbour
 seals population are more comparatively grey. In other way, it can be
-derived that the harbor seals are more significantly common than the
-grey species.
+derived that the harbor seals in Tees Estuary are more significantly
+common than the grey seals
 
 Also, we can explore data in more detailed way in order to find out
 significant difference of species for each year.
@@ -499,7 +570,7 @@ HARBOUR & 0.100351\tabularnewline
 If we look at the below stats, we can clearly see the p-value for 2009
 year is to 0.001 and adjusted p-value is also 0.001 which derives there
 is significance difference in the Species.Therefore we can say that the
-data is normaly distributed in the year 2009.
+data is normally distributed in the year 2009.
 
 \begin{verbatim}
 ## [1] 0.001307411
@@ -573,11 +644,11 @@ Year.Month & Species & N & average.count & sd & se & ci\tabularnewline
 \bottomrule
 \end{longtable}
 
-The Below Graph represents the standard deviation of each of the species
-in particular months in a years. Considering the graph we can see that
-the In August 2010 the standard deviation seems to be very far from the
-mean value but in 2009 June and July, The SD values are very close to
-with mean value.
+The Below Graph represents the standard deviation,Standard Error and CI
+of each of the species in particular months in a years. Considering the
+graph we can see that the In August 2010 the standard deviation seems to
+be very far from the mean value but in 2009 June and July, The SD values
+are very close to with mean value.
 
 \includegraphics{Statistical-analysis-in-RStudio_files/figure-latex/unnamed-chunk-33-1.pdf}
 
@@ -602,7 +673,7 @@ error. This clearly signifies difference species for a particular month.
 \hypertarget{results}{%
 \section{RESULTS}\label{results}}
 
-In the above test, we have analysed the significant difference between
+In the above test, we have analyzed the significant difference between
 the species and the count values. We have different nominal variables
 and only one measure of variables, however we are able to identify
 non-significant values of the population of seals over time.\\
@@ -612,16 +683,28 @@ summer 2007. But they also found out that the levels of variance in the
 data particularly word not explored. Therefore we started exploring data
 for each month in a year in order to find out the presence of seals, but
 the test suggested that there is no significant difference and different
-months for each year. Moreover, Started analysing particular species for
-each year. Initially we had seen that the harbour seals species are more
-common than grey sea species, after that we found out 2009 and 10 the
-data appeared to be more significant 2007 and 2008 the data was slightly
-significant. After that, we calculated the standard error, and
-visualised the data which represented how the variables are using
+months for each year. Moreover, Started analyzing particular species for
+each year. Initially we had seen that the harbor seals are more common
+than grey seals of the Tees Estuary, after that we found out 2009 and 10
+the data appeared to be more significant 2007 and 2008 the data was
+slightly significant. After that, we calculated the standard error, and
+visualized the data which represented how the variables are using
 standard errors.
 
-By summing up, we can say that the data is well explored, analysed and
-ready to be processed for modelling which will help to give better
+Considering the data and the above factors, In Tees Estuary after the
+environmental stabilization the growth of the seals has seen more rapid
+particularly for the harbor species.In the four year analysis the harbor
+seals is being colonized within the Tees estuary and is being healthy
+growing and could be predicted growth rate of 50\% over next 5 years
+where as Grey seals growth rate is sable or slightly increasing each
+year could be increased by 20\% to 30\% over next 5 years. However we
+can say that, The major cause of disappearing of seals was due
+environmental degradation, if we maintain a eco-friendly environment we
+can see rapid increment in growth rate of species within the Tees
+estuary.
+
+By summing up, we can say that the data is well explored, analyzed and
+ready to be processed for modeling which will help to give better
 results for prediction.
 
 \hypertarget{discussion}{%
@@ -641,7 +724,7 @@ difference in their distribution. Yet, the test does not considered that
 the data are normally distributed, which can be a big advantage but 800
 data has different groups different variants the test will give
 inaccurate result. Therefore, if the distribution is different and
-variant is different we can use anova test for accurate results
+variant is different we can use anova test for accurate results.
 
 \hypertarget{references}{%
 \subsubsection{REFERENCES}\label{references}}
